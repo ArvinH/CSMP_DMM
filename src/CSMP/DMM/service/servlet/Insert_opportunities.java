@@ -25,10 +25,10 @@ import CSMP.DMM.service.model.APIManager;
 public class Insert_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String insertdbTableSechema = "insert into opportunities(id,name,date_entered,date_modified," +
-			"modified_user_id,created_by,description,deleted,assigned_user_id,opportunity_type) " + 
-			"campaign_id, lead_source,amount, amount_usdollar, date_closed, next_step, sales_stage, probability"+
-		      "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			"modified_user_id,created_by,description,deleted,assigned_user_id,opportunity_type, " + 
+			"campaign_id, lead_source,amount, amount_usdollar, date_closed, next_step, sales_stage, probability) ";
 	private String id = null;
+	private String SME_ID = null;
 	private String name = null;
 	private String date_entered = null;
 	private String date_modified = null;
@@ -75,6 +75,7 @@ public class Insert_opportunities extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		id = URLDecoder.decode(request.getParameter("id"),"UTF-8");
+		SME_ID = URLDecoder.decode(request.getParameter("SME_ID"),"UTF-8");
 		name = URLDecoder.decode(request.getParameter("name"),"UTF-8");
 		date_entered = URLDecoder.decode(request.getParameter("date_entered"),"UTF-8");
 		date_modified = URLDecoder.decode(request.getParameter("date_modified"),"UTF-8");
@@ -93,24 +94,20 @@ public class Insert_opportunities extends HttpServlet {
 		sales_stage = URLDecoder.decode(request.getParameter("sales_stage"),"UTF-8");
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
 		
-		String content = null;
-		content = id+","+name+","+date_entered+","+date_modified+","+modified_user_id
-				+","+created_by+","+description+","+deleted+","+assigned_user_id+","+opportunity_type
-				+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed
-				+","+next_step+","+sales_stage+","+probability;
-		                    
+
+		insertdbTableSechema += "values("+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+				deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
+				next_step+","+sales_stage+","+probability+")";
 		
 		DBCollection connection = null;
 
 		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CSMP_DMM_API.insert_opportunities,"SME_Name");
+			connection = services.getInstance(CSMP_DMM_API.insert_opportunities,"opportunities");
 
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("id", "id")
-							.append("schema", insertdbTableSechema)
-							.append("content", content);
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema);
 					connection.insert(doc);
 				
 				DBObject myDoc = connection.findOne();
