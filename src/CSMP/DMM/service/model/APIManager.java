@@ -14,41 +14,31 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 import com.mongodb.MongoException;
-
-public enum ServiceManager implements CloudFoundryServices {
+//要連結到mongodb的所有api都透過這個APIManager來控制
+public enum APIManager implements CSMP_DMM_API {
 
 	INSTANCE;
-	private static final String NULL_STRING = "";
 
-	public DBCollection getInstance(int service_type) throws Exception {
-		if (service_type == Mongodb) {
-			return getMongoDBConnection();
+	public DBCollection getInstance(int service_type, String collectionName) throws Exception {
+		if (service_type == insert_opportunities) {
+			return getOpportunitiesConnection(collectionName);
 		} else {
 			throw new IllegalArgumentException("Service for id " + service_type
 					+ " not found...");
 		}
 	}
 	
-	private DBCollection getMongoDBConnection() {
-		
-			
-		System.setProperty("java.net.preferIPv4Stack", "true");
-	
+	private DBCollection getOpportunitiesConnection(String collectionName) {
 			try {
 				Mongo mongo = new Mongo("192.168.1.237", 27017);
-				//CommandResult auth = mongo.getDB("db").authenticateCommand("0601dda9-7df4-49ea-a91c-6a38dcdbd07e", "25775550-da73-4d1c-be30-6b99eeb1be96".toCharArray());
-				//System.out.println(auth);
 				DB db = mongo.getDB("CSS");
-				DBCollection collection = db.getCollection("CSMP_DMM");
-				
-				
+				DBCollection collection = db.getCollection(collectionName);				
 				return collection;
 			} catch (UnknownHostException e) {  
 	            e.printStackTrace();  
 	        } catch (MongoException e) {  
 	            e.printStackTrace();  
 	        }  
-		
 		return null;
 	}
 }

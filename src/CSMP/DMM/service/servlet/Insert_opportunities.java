@@ -14,8 +14,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 
-import CSMP.DMM.service.model.CloudFoundryServices;
-import CSMP.DMM.service.model.ServiceManager;
+import CSMP.DMM.service.model.CSMP_DMM_API;
+import CSMP.DMM.service.model.APIManager;
 
 /**
  * Servlet implementation class HelloCloudfoundry
@@ -102,19 +102,16 @@ public class Insert_opportunities extends HttpServlet {
 		
 		DBCollection connection = null;
 
-		// establish connection to Mongodb Service
-		ServiceManager services = ServiceManager.INSTANCE;
+		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CloudFoundryServices.Mongodb);
+			connection = services.getInstance(CSMP_DMM_API.insert_opportunities,"SME_Name");
 
 			if (connection != null) {
 
-				
 					BasicDBObject doc = new BasicDBObject("id", "id")
 							.append("schema", insertdbTableSechema)
 							.append("content", content);
 					connection.insert(doc);
-				
 				
 				DBObject myDoc = connection.findOne();
 				System.out.println(myDoc);
