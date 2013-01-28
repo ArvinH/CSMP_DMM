@@ -36,20 +36,11 @@ public enum ServiceManager implements CloudFoundryServices {
 	
 			try {
 				Mongo mongo = new Mongo("192.168.1.237", 27017);
-				System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 				//CommandResult auth = mongo.getDB("db").authenticateCommand("0601dda9-7df4-49ea-a91c-6a38dcdbd07e", "25775550-da73-4d1c-be30-6b99eeb1be96".toCharArray());
 				//System.out.println(auth);
 				DB db = mongo.getDB("CSS");
 				DBCollection collection = db.getCollection("CSMP_DMM");
 				
-				BasicDBObject doc = new BasicDBObject("name", "MongoDB")
-						.append("type", "database")
-						.append("count", 1)
-						.append("info",
-								new BasicDBObject("x", 203).append("y", 102));
-				collection.insert(doc);
-				DBObject myDoc = collection.findOne();
-				System.out.println(myDoc); 
 				
 				return collection;
 			} catch (UnknownHostException e) {  
