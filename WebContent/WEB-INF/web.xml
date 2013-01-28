@@ -7,12 +7,12 @@
 
     <servlet>
         <servlet-name>HelloCloudfoundry</servlet-name>
-        <servlet-class>cloudfoundry.test.servlet.HelloCloudfoundry</servlet-class>
+        <servlet-class>cloudfoundry.test.servlet.Insert_opportunities</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>HelloCloudfoundry</servlet-name>
-        <url-pattern>/getHostandPost.do</url-pattern>
+        <url-pattern>/insert_opportunities.do</url-pattern>
     </servlet-mapping>
 
 </web-app>
