@@ -95,10 +95,6 @@ public class Insert_opportunities extends HttpServlet {
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
 		
 
-		insertdbTableSechema += "values("+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
-				deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
-				next_step+","+sales_stage+","+probability+")";
-		
 		DBCollection connection = null;
 
 		APIManager services = APIManager.INSTANCE;
@@ -107,7 +103,9 @@ public class Insert_opportunities extends HttpServlet {
 
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema);
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+							deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
+							next_step+","+sales_stage+","+probability+")");
 					connection.insert(doc);
 				
 				DBObject myDoc = connection.findOne();
