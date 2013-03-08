@@ -46,6 +46,7 @@ public class Insert_opportunities extends HttpServlet {
 	private String next_step = null;
 	private String sales_stage = null;
 	private String probability = null;
+	private String status = null;
 	/**
 	 * Default constructor.
 	 */
@@ -105,7 +106,7 @@ public class Insert_opportunities extends HttpServlet {
 
 					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
-							next_step+","+sales_stage+","+probability+")");
+							next_step+","+sales_stage+","+probability+");");
 					connection.insert(doc);
 				
 				DBObject myDoc = connection.findOne();
@@ -116,11 +117,12 @@ public class Insert_opportunities extends HttpServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			status = new String("0");
 		}
 
 		PrintWriter writer = response.getWriter();
-		String Result = new String("Insert succeed!");
-		writer.println(Result);
+		status = new String("1");
+		writer.println(status);
 		writer.close();
 	}
 
