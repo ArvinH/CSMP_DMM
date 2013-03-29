@@ -101,7 +101,7 @@ public class Insert_opportunities extends HttpServlet {
 		APIManager services = APIManager.INSTANCE;
 		try {
 			connection = services.getInstance(CSMP_DMM_API.insert_opportunities,"opportunities");
-
+			status = new String("1");
 			if (connection != null) {
 
 					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
@@ -121,7 +121,7 @@ public class Insert_opportunities extends HttpServlet {
 		}
 
 		PrintWriter writer = response.getWriter();
-		status = new String("1");
+		
 		writer.println(status);
 		writer.close();
 	}
