@@ -97,7 +97,6 @@ public class Insert_opportunities extends HttpServlet {
 		
 
 		DBCollection connection = null;
-
 		APIManager services = APIManager.INSTANCE;
 		try {
 			connection = services.getInstance(CSMP_DMM_API.insert_opportunities,"opportunities");
@@ -108,9 +107,8 @@ public class Insert_opportunities extends HttpServlet {
 							deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 					connection.insert(doc);
+					
 				
-				DBObject myDoc = connection.findOne();
-				System.out.println(myDoc);
 			} else {
 				System.out.println("connection error");
 			}
@@ -118,6 +116,9 @@ public class Insert_opportunities extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			status = new String("0");
+		}
+		finally{
+			
 		}
 
 		PrintWriter writer = response.getWriter();
