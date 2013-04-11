@@ -20,10 +20,15 @@ public enum APIManager implements CSMP_DMM_API {
 	public DBCollection getInstance(int service_type, String collectionName) throws Exception {
 		if (service_type == insert_opportunities_v1) {
 			return getOpportunitiesConnection(collectionName);
-		} else {
+		}
+		if (service_type == insert_campaigns_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}
+		else {
 			throw new IllegalArgumentException("Service for id " + service_type
 					+ " not found...");
 		}
+		
 	}
 	
 	private DBCollection getOpportunitiesConnection(String collectionName) {

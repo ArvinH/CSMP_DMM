@@ -24,29 +24,30 @@ import CSMP.DMM.service.model.APIManager;
 @WebServlet("/Insert_API_opportunities")
 public class Insert_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String insertdbTableSechema = "insert into opportunities(Token,id,name,date_entered,date_modified," +
-			"modified_user_id,created_by,description,deleted,assigned_user_id,opportunity_type, " + 
-			"campaign_id, lead_source,amount, amount_usdollar, date_closed, next_step, sales_stage, probability) ";
+	private String insertdbTableSechema = "insert into opportunities(Token,id,deleted,SME_ID,date_entered,date_modified," +
+			"modified_user_id,created_by,description,assigned_user_id,name,opportunity_type, " + 
+			"campaign_source, lead_source,amount, date_closed, next_step, sales_stage, probability) ";
 	private String Token = null;
 	private String id = null;
+	private String deleted = null;
 	private String SME_ID = null;
-	private String name = null;
 	private String date_entered = null;
 	private String date_modified = null;
 	private String modified_user_id = null;
 	private String created_by = null;
 	private String description = null;
-	private String deleted = null;
 	private String assigned_user_id = null;
+	private String name = null;
+	private String related_to = null;
 	private String opportunity_type = null;
-	private String campaign_id = null;
+	private String campaign_source = null;
 	private String lead_source = null;
 	private String amount = null;
-	private String amount_usdollar = null;
 	private String date_closed = null;
 	private String next_step = null;
 	private String sales_stage = null;
 	private String probability = null;
+	// status for return (not for insert schema)
 	private String status = null;
 	/**
 	 * Default constructor.
@@ -78,20 +79,20 @@ public class Insert_opportunities extends HttpServlet {
 		
 		Token = URLDecoder.decode(request.getParameter("Token"),"UTF-8"); 
 		id = URLDecoder.decode(request.getParameter("id"),"UTF-8");
+		deleted = URLDecoder.decode(request.getParameter("deleted"),"UTF-8");
 		SME_ID = URLDecoder.decode(request.getParameter("SME_ID"),"UTF-8");
-		name = URLDecoder.decode(request.getParameter("name"),"UTF-8");
 		date_entered = URLDecoder.decode(request.getParameter("date_entered"),"UTF-8");
 		date_modified = URLDecoder.decode(request.getParameter("date_modified"),"UTF-8");
 		modified_user_id = URLDecoder.decode(request.getParameter("modified_user_id"),"UTF-8");
 		created_by = URLDecoder.decode(request.getParameter("created_by"),"UTF-8");
 		description = URLDecoder.decode(request.getParameter("description"),"UTF-8");
-		deleted = URLDecoder.decode(request.getParameter("deleted"),"UTF-8");
 		assigned_user_id = URLDecoder.decode(request.getParameter("assigned_user_id"),"UTF-8");
+		name = URLDecoder.decode(request.getParameter("name"),"UTF-8");
+		related_to = URLDecoder.decode(request.getParameter("related_to"),"UTF-8");
 		opportunity_type = URLDecoder.decode(request.getParameter("opportunity_type"),"UTF-8");
-		campaign_id = URLDecoder.decode(request.getParameter("campaign_id"),"UTF-8");
+		campaign_source = URLDecoder.decode(request.getParameter("campaign_source"),"UTF-8");
 		lead_source = URLDecoder.decode(request.getParameter("lead_source"),"UTF-8");
 		amount = URLDecoder.decode(request.getParameter("amount"),"UTF-8");
-		amount_usdollar = URLDecoder.decode(request.getParameter("amount_usdollar"),"UTF-8");
 		date_closed = URLDecoder.decode(request.getParameter("date_closed"),"UTF-8");
 		next_step = URLDecoder.decode(request.getParameter("next_step"),"UTF-8");
 		sales_stage = URLDecoder.decode(request.getParameter("sales_stage"),"UTF-8");
@@ -105,8 +106,8 @@ public class Insert_opportunities extends HttpServlet {
 			status = new String("1");
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
-							deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+SME_ID+","+deleted+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 					connection.insert(doc);
 					
