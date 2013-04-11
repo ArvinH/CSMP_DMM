@@ -21,7 +21,7 @@ public enum APIManager implements CSMP_DMM_API {
 		if (service_type == insert_opportunities_v1) {
 			return getOpportunitiesConnection(collectionName);
 		}
-		if (service_type == insert_campaigns_v1) {
+		else if (service_type == insert_campaigns_v1) {
 			return getOpportunitiesConnection(collectionName);
 		}
 		else {
