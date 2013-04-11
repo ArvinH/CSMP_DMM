@@ -20,7 +20,7 @@ import com.mongodb.DBCollection;
  * Servlet implementation class Insert_campaigns
  */
 @SuppressWarnings("restriction")
-@WebServlet("/Insert_campaigns")
+@WebServlet("/Insert_API_campaigns")
 public class Insert_campaigns extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String insertdbTableSechema = "insert into campaigns(Token,id,deleted,SME_ID,date_entered,date_modified," +
