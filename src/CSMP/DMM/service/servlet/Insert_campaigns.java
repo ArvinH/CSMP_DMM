@@ -85,6 +85,7 @@ public class Insert_campaigns extends HttpServlet {
 		Token = URLDecoder.decode(request.getParameter("Token"),"UTF-8"); 
 		id = URLDecoder.decode(request.getParameter("id"),"UTF-8");
 		deleted = URLDecoder.decode(request.getParameter("deleted"),"UTF-8");
+		SME_ID = URLDecoder.decode(request.getParameter("SME_ID"),"UTF-8");
 		date_entered = URLDecoder.decode(request.getParameter("date_entered"),"UTF-8");
 		date_modified = URLDecoder.decode(request.getParameter("date_modified"),"UTF-8");
 		modified_user_id = URLDecoder.decode(request.getParameter("modified_user_id"),"UTF-8");
@@ -118,7 +119,7 @@ public class Insert_campaigns extends HttpServlet {
 			ReStatus = new String("1");
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+deleted+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+
 							name+","+type+","+status+","+date_closed+","+expectedrevenue+","+budgetcost+","+actualcost+","+expectedresponse+","+
 							numsent+","+product_id+","+sponsor+","+targetaudience+","+targetsize+","+expectedresponsecount+","+expectedsalescount+","+expectedroi+","+actualresponsecount+","+actualsalescount+","+actualroi+");");
 					connection.insert(doc);
