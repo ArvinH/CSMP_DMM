@@ -76,7 +76,6 @@ public class Insert_opportunities extends HttpServlet {
 		response.setContentType("text/plain");
 		response.setStatus(200);
 		response.setCharacterEncoding("UTF-8");
-		
 		Token = URLDecoder.decode(request.getParameter("Token"),"UTF-8"); 
 		id = URLDecoder.decode(request.getParameter("id"),"UTF-8");
 		deleted = URLDecoder.decode(request.getParameter("deleted"),"UTF-8");
@@ -109,6 +108,7 @@ public class Insert_opportunities extends HttpServlet {
 					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+SME_ID+","+deleted+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
+					
 					connection.insert(doc);
 					
 				
