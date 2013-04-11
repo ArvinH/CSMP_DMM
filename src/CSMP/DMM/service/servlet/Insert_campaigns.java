@@ -114,7 +114,7 @@ public class Insert_campaigns extends HttpServlet {
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CSMP_DMM_API.insert_campaigns_v1,"opportunities");
+			connection = services.getInstance(CSMP_DMM_API.insert_campaigns_v1,"campaigns");
 			ReStatus = new String("1");
 			if (connection != null) {
 
