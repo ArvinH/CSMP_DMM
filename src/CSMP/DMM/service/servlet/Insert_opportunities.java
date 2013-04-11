@@ -24,9 +24,10 @@ import CSMP.DMM.service.model.APIManager;
 @WebServlet("/Insert_API_opportunities")
 public class Insert_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String insertdbTableSechema = "insert into opportunities(id,name,date_entered,date_modified," +
+	private String insertdbTableSechema = "insert into opportunities(Token,id,name,date_entered,date_modified," +
 			"modified_user_id,created_by,description,deleted,assigned_user_id,opportunity_type, " + 
 			"campaign_id, lead_source,amount, amount_usdollar, date_closed, next_step, sales_stage, probability) ";
+	private String Token = null;
 	private String id = null;
 	private String SME_ID = null;
 	private String name = null;
@@ -75,6 +76,7 @@ public class Insert_opportunities extends HttpServlet {
 		response.setStatus(200);
 		response.setCharacterEncoding("UTF-8");
 		
+		Token = URLDecoder.decode(request.getParameter("Token"),"UTF-8"); 
 		id = URLDecoder.decode(request.getParameter("id"),"UTF-8");
 		SME_ID = URLDecoder.decode(request.getParameter("SME_ID"),"UTF-8");
 		name = URLDecoder.decode(request.getParameter("name"),"UTF-8");
@@ -99,11 +101,11 @@ public class Insert_opportunities extends HttpServlet {
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CSMP_DMM_API.insert_opportunities,"opportunities");
+			connection = services.getInstance(CSMP_DMM_API.insert_opportunities_v1,"opportunities");
 			status = new String("1");
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+SME_ID+","+name+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							deleted+","+assigned_user_id+","+opportunity_type+","+campaign_id+","+lead_source+","+amount+","+amount_usdollar+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 					connection.insert(doc);
