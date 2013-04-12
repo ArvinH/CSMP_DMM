@@ -24,7 +24,7 @@ import CSMP.DMM.service.model.APIManager;
 @WebServlet("/Insert_API_opportunities")
 public class Insert_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String insertdbTableSechema = "insert into opportunities(Token,id,deleted,SME_ID,date_entered,date_modified," +
+	private String insertdbTableSechema = "insert into opportunities(id,deleted,SME_ID,date_entered,date_modified," +
 			"modified_user_id,created_by,description,assigned_user_id,name,opportunity_type, " + 
 			"campaign_source, lead_source,amount, date_closed, next_step, sales_stage, probability) ";
 	private String Token = null;
@@ -105,7 +105,7 @@ public class Insert_opportunities extends HttpServlet {
 			status = new String("1");
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+SME_ID+","+deleted+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+SME_ID+","+deleted+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 					

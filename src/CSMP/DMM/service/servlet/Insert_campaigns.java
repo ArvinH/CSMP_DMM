@@ -23,7 +23,7 @@ import com.mongodb.DBCollection;
 @WebServlet("/Insert_API_campaigns")
 public class Insert_campaigns extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String insertdbTableSechema = "insert into campaigns(Token,id,deleted,SME_ID,date_entered,date_modified," +
+	private String insertdbTableSechema = "insert into campaigns(id,deleted,SME_ID,date_entered,date_modified," +
 			"modified_user_id,created_by,description,assigned_user_id,name,type,status,date_closed,expectedrevenue" + 
 			"budgetcost, actualcost,expectedresponse, numsent, product_id, sponsor, targetaudience, targetsize, expectedresponsecount"+
 			"expectedsalescount,expectedroi,actualresponsecount,actualsalescount,actualroi) ";
@@ -119,7 +119,7 @@ public class Insert_campaigns extends HttpServlet {
 			ReStatus = new String("1");
 			if (connection != null) {
 				
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+Token+","+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+
 							name+","+type+","+status+","+date_closed+","+expectedrevenue+","+budgetcost+","+actualcost+","+expectedresponse+","+
 							numsent+","+product_id+","+sponsor+","+targetaudience+","+targetsize+","+expectedresponsecount+","+expectedsalescount+","+expectedroi+","+actualresponsecount+","+actualsalescount+","+actualroi+");");
 				
