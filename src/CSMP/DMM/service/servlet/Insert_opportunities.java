@@ -25,7 +25,7 @@ import CSMP.DMM.service.model.APIManager;
 public class Insert_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String insertdbTableSechema = "insert into opportunities(id,deleted,SME_ID,date_entered,date_modified," +
-			"modified_user_id,created_by,description,assigned_user_id,name,opportunity_type, " + 
+			"modified_user_id,created_by,description,assigned_user_id,name,related_to,opportunity_type, " + 
 			"campaign_source, lead_source,amount, date_closed, next_step, sales_stage, probability) ";
 	private String Token = null;
 	private String id = null;
@@ -83,7 +83,7 @@ public class Insert_opportunities extends HttpServlet {
 		date_entered = URLDecoder.decode(request.getParameter("date_entered"),"UTF-8");
 		date_modified = URLDecoder.decode(request.getParameter("date_modified"),"UTF-8");
 		modified_user_id = URLDecoder.decode(request.getParameter("modified_user_id"),"UTF-8");
-		created_by = URLDecoder.decode(request.getParameter("created_by"),"UTF-8");
+		created_by = URLDecoder.decode(request.getParameter("created_by"),"UTF-8"); 
 		description = URLDecoder.decode(request.getParameter("description"),"UTF-8");
 		assigned_user_id = URLDecoder.decode(request.getParameter("assigned_user_id"),"UTF-8");
 		name = URLDecoder.decode(request.getParameter("name"),"UTF-8");
@@ -105,12 +105,17 @@ public class Insert_opportunities extends HttpServlet {
 			status = new String("1");
 			if (connection != null) {
 
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+SME_ID+","+deleted+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
-							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
-							next_step+","+sales_stage+","+probability+");");
+				 //original SQL syntax
+				 BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+
+							assigned_user_id+"','"+name+"','"+related_to+"','"+opportunity_type+"','"+campaign_source+"','"+lead_source+"','"+amount+"','"+date_closed+"','"+
+							next_step+"','"+sales_stage+"','"+probability+"');");
+				 connection.insert(doc);
+				// according to python-mysql-connector
+				/*BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)*^*["+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+						assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
+						next_step+","+sales_stage+","+probability+"]");
 					
-					connection.insert(doc);
-					
+				*/	
 				
 			} else {
 				System.out.println("connection error");

@@ -119,9 +119,9 @@ public class Insert_campaigns extends HttpServlet {
 			ReStatus = new String("1");
 			if (connection != null) {
 				
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+
-							name+","+type+","+status+","+date_closed+","+expectedrevenue+","+budgetcost+","+actualcost+","+expectedresponse+","+
-							numsent+","+product_id+","+sponsor+","+targetaudience+","+targetsize+","+expectedresponsecount+","+expectedsalescount+","+expectedroi+","+actualresponsecount+","+actualsalescount+","+actualroi+");");
+					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+assigned_user_id+"','"+
+							name+"','"+type+"','"+status+"','"+date_closed+"','"+expectedrevenue+"','"+budgetcost+"','"+actualcost+"','"+expectedresponse+"','"+
+							numsent+"','"+product_id+"','"+sponsor+"','"+targetaudience+"','"+targetsize+"','"+expectedresponsecount+"','"+expectedsalescount+"','"+expectedroi+"','"+actualresponsecount+"','"+actualsalescount+"','"+actualroi+"');");
 				
 					connection.insert(doc);
 					
