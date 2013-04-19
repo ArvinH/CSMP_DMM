@@ -100,7 +100,7 @@ public class Insert_opportunities extends HttpServlet {
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
 		
 		token_verification tt = new token_verification();
-	    int varify = tt.send("33","aaa");
+	    int varify = tt.send(SME_ID,Token);
 	    
 	    if( varify == 1){
 		DBCollection connection = null;
