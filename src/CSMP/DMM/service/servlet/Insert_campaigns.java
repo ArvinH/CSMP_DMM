@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import token_test.token_verification;
+
 import CSMP.DMM.service.model.APIManager;
 import CSMP.DMM.service.model.CSMP_DMM_API;
 
@@ -112,11 +114,16 @@ public class Insert_campaigns extends HttpServlet {
 		actualsalescount = URLDecoder.decode(request.getParameter("actualsalescount"),"UTF-8");
 		actualroi = URLDecoder.decode(request.getParameter("actualroi"),"UTF-8");
 			
+
+		token_verification tt = new token_verification();
+	    int varify = tt.send("33","aaa");
+	    
+	    if( varify == 1){
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
 			connection = services.getInstance(CSMP_DMM_API.insert_campaigns_v1,"campaigns");
-			ReStatus = new String("1");
+			ReStatus = new String("1, OK");
 			if (connection != null) {
 				
 					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+assigned_user_id+"','"+
@@ -132,16 +139,39 @@ public class Insert_campaigns extends HttpServlet {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			ReStatus = new String("0");
+			ReStatus = new String("0, ERROR");
 		}
 		finally{
 			
 		}
-
+		
 		PrintWriter writer = response.getWriter();
 		
 		writer.println(ReStatus);
 		writer.close();
+	    }
+	    else if( varify == -301 ){
+
+			PrintWriter writer = response.getWriter();
+			ReStatus = new String("301, parameter error"); 
+			writer.println(ReStatus);
+			writer.close();
+			
+	    }
+	    else if( varify == -302 ){
+
+			PrintWriter writer = response.getWriter();
+			ReStatus = new String("302, request executed failed"); 
+			writer.println(ReStatus);
+			writer.close();
+			
+	    }
+	    else{
+	    	PrintWriter writer = response.getWriter();
+			ReStatus = new String("something wron with token varify"); 
+			writer.println(ReStatus);
+			writer.close();
+	    }
 	}
 
 }

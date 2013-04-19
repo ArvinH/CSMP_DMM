@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import token_test.token_verification;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -97,18 +99,20 @@ public class Insert_opportunities extends HttpServlet {
 		sales_stage = URLDecoder.decode(request.getParameter("sales_stage"),"UTF-8");
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
 		
-
+		token_verification tt = new token_verification();
+	    int varify = tt.send("33","aaa");
+	    
+	    if( varify == 1){
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
 			connection = services.getInstance(CSMP_DMM_API.insert_opportunities_v1,"opportunities");
-			status = new String("1");
 			if (connection != null) {
 
 				 //original SQL syntax
-				 BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+
-							assigned_user_id+"','"+name+"','"+related_to+"','"+opportunity_type+"','"+campaign_source+"','"+lead_source+"','"+amount+"','"+date_closed+"','"+
-							next_step+"','"+sales_stage+"','"+probability+"');");
+				 BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
+							next_step+","+sales_stage+","+probability+");");
 				 connection.insert(doc);
 				// according to python-mysql-connector
 				/*BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)*^*["+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
@@ -118,12 +122,14 @@ public class Insert_opportunities extends HttpServlet {
 				*/	
 				
 			} else {
+				status = new String("0, ERROR");
 				System.out.println("connection error");
 			}
+			status = new String("1, OK");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			status = new String("0");
+			status = new String("0, ERROR");
 		}
 		finally{
 			
@@ -133,6 +139,23 @@ public class Insert_opportunities extends HttpServlet {
 		
 		writer.println(status);
 		writer.close();
+	    }
+	    else if( varify == -301 ){
+
+			PrintWriter writer = response.getWriter();
+			status = new String("301, parameter error"); 
+			writer.println(status);
+			writer.close();
+			
+	    }
+	    else if( varify == -302 ){
+
+			PrintWriter writer = response.getWriter();
+			status = new String("302, request executed failed"); 
+			writer.println(status);
+			writer.close();
+			
+	    }
 	}
 
 }
