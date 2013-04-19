@@ -110,7 +110,7 @@ public class Insert_opportunities extends HttpServlet {
 			if (connection != null) {
 
 				 //original SQL syntax
-				 BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+				 BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+deleted+",\""+SME_ID+"\","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 				 connection.insert(doc);
