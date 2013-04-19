@@ -156,6 +156,12 @@ public class Insert_opportunities extends HttpServlet {
 			writer.close();
 			
 	    }
+	    else{
+	    	PrintWriter writer = response.getWriter();
+	    	status = new String("something wrong with token varify"); 
+			writer.println(status);
+			writer.close();
+	    }
 	}
 
 }
