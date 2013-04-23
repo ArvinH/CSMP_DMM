@@ -23,9 +23,9 @@ import com.mongodb.DBCollection;
  */
 @SuppressWarnings("restriction")
 @WebServlet("/Insert_API_campaigns")
-public class Insert_campaigns extends HttpServlet {
+public class Backup_campaigns extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String insertdbTableSechema = "insert into campaigns(id,deleted,SME_ID,date_entered,date_modified," +
+	private String Replace_dbTableSechema = "replace into campaigns(id,deleted,SME_ID,date_entered,date_modified," +
 			"modified_user_id,created_by,description,assigned_user_id,name,type,status,date_closed,expectedrevenue" + 
 			"budgetcost, actualcost,expectedresponse, numsent, product_id, sponsor, targetaudience, targetsize, expectedresponsecount"+
 			"expectedsalescount,expectedroi,actualresponsecount,actualsalescount,actualroi) ";
@@ -63,7 +63,7 @@ public class Insert_campaigns extends HttpServlet {
 	/**
      * @see HttpServlet#HttpServlet()
      */
-    public Insert_campaigns() {
+    public Backup_campaigns() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -122,11 +122,11 @@ public class Insert_campaigns extends HttpServlet {
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CSMP_DMM_API.insert_campaigns_v1,"campaigns");
+			connection = services.getInstance(CSMP_DMM_API.backup_campaigns_v1,"campaigns");
 			ReStatus = new String("1, OK");
 			if (connection != null) {
 				
-					BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+assigned_user_id+"','"+
+					BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+assigned_user_id+"','"+
 							name+"','"+type+"','"+status+"','"+date_closed+"','"+expectedrevenue+"','"+budgetcost+"','"+actualcost+"','"+expectedresponse+"','"+
 							numsent+"','"+product_id+"','"+sponsor+"','"+targetaudience+"','"+targetsize+"','"+expectedresponsecount+"','"+expectedsalescount+"','"+expectedroi+"','"+actualresponsecount+"','"+actualsalescount+"','"+actualroi+"');");
 				

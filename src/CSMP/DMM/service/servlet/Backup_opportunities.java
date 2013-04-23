@@ -24,9 +24,9 @@ import CSMP.DMM.service.model.APIManager;
  */
 @SuppressWarnings("restriction")
 @WebServlet("/Insert_API_opportunities")
-public class Insert_opportunities extends HttpServlet {
+public class Backup_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String insertdbTableSechema = "insert into opportunities(id,deleted,SME_ID,date_entered,date_modified," +
+	private String Replace_dbTableSechema = "replace into opportunities(id,deleted,SME_ID,date_entered,date_modified," +
 			"modified_user_id,created_by,description,assigned_user_id,name,related_to,opportunity_type, " + 
 			"campaign_source, lead_source,amount, date_closed, next_step, sales_stage, probability) ";
 	private String Token = null;
@@ -54,7 +54,7 @@ public class Insert_opportunities extends HttpServlet {
 	/**
 	 * Default constructor.
 	 */
-	public Insert_opportunities() {
+	public Backup_opportunities() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -106,11 +106,11 @@ public class Insert_opportunities extends HttpServlet {
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CSMP_DMM_API.insert_opportunities_v1,"opportunities");
+			connection = services.getInstance(CSMP_DMM_API.backup_opportunities_v1,"opportunities");
 			if (connection != null) {
 
 				 //original SQL syntax
-				 BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values("+id+","+deleted+",\""+SME_ID+"\","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+				 BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values("+id+","+deleted+",\""+SME_ID+"\","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 				 connection.insert(doc);

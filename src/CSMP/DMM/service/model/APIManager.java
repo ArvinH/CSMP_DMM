@@ -18,10 +18,10 @@ public enum APIManager implements CSMP_DMM_API {
 
 	//private static MongoClient mongoclient;
 	public DBCollection getInstance(int service_type, String collectionName) throws Exception {
-		if (service_type == insert_opportunities_v1) {
+		if (service_type == backup_opportunities_v1) {
 			return getOpportunitiesConnection(collectionName);
 		}
-		else if (service_type == insert_campaigns_v1) {
+		else if (service_type == backup_campaigns_v1) {
 			return getOpportunitiesConnection(collectionName);
 		}
 		else {

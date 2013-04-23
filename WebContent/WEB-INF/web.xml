@@ -2,19 +2,19 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" id="WebApp_ID" version="2.4">
  
   <servlet>
-    <servlet-name>Insert_API_opportunities</servlet-name>
-    <servlet-class>CSMP.DMM.service.servlet.Insert_opportunities</servlet-class>
+    <servlet-name>Backup_API_opportunities</servlet-name>
+    <servlet-class>CSMP.DMM.service.servlet.Backup_opportunities</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Insert_API_opportunities</servlet-name>
-    <url-pattern>/insert_opportunities.do</url-pattern>
+    <servlet-name>Backup_API_opportunities</servlet-name>
+    <url-pattern>/backup_opportunities.do</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>Insert_API_campaigns</servlet-name>
-    <servlet-class>CSMP.DMM.service.servlet.Insert_campaigns</servlet-class>
+    <servlet-name>Backup_API_campaigns</servlet-name>
+    <servlet-class>CSMP.DMM.service.servlet.Backup_campaigns</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Insert_API_campaigns</servlet-name>
-    <url-pattern>/insert_campaigns.do</url-pattern>
+    <servlet-name>Backup_API_campaigns</servlet-name>
+    <url-pattern>/backup_campaigns.do</url-pattern>
   </servlet-mapping>
 </web-app>
