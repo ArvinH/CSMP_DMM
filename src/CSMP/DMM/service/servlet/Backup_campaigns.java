@@ -116,9 +116,9 @@ public class Backup_campaigns extends HttpServlet {
 			
 
 		token_verification tt = new token_verification();
-	    int varify = tt.send(SME_ID,Token);
+	//    int varify = tt.send(SME_ID,Token);
 	    
-	    if( varify == 1){
+	  //  if( varify == 1){
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
@@ -126,9 +126,9 @@ public class Backup_campaigns extends HttpServlet {
 			ReStatus = new String("1, OK");
 			if (connection != null) {
 				
-					BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values('"+id+"','"+deleted+"','"+SME_ID+"','"+date_entered+"','"+date_modified+"','"+modified_user_id+"','"+created_by+"','"+description+"','"+assigned_user_id+"','"+
-							name+"','"+type+"','"+status+"','"+date_closed+"','"+expectedrevenue+"','"+budgetcost+"','"+actualcost+"','"+expectedresponse+"','"+
-							numsent+"','"+product_id+"','"+sponsor+"','"+targetaudience+"','"+targetsize+"','"+expectedresponsecount+"','"+expectedsalescount+"','"+expectedroi+"','"+actualresponsecount+"','"+actualsalescount+"','"+actualroi+"');");
+					BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+
+							name+","+type+","+status+","+date_closed+","+expectedrevenue+","+budgetcost+","+actualcost+","+expectedresponse+","+
+							numsent+","+product_id+","+sponsor+","+targetaudience+","+targetsize+","+expectedresponsecount+","+expectedsalescount+","+expectedroi+","+actualresponsecount+","+actualsalescount+","+actualroi+");");
 				
 					connection.insert(doc);
 					
@@ -149,7 +149,7 @@ public class Backup_campaigns extends HttpServlet {
 		
 		writer.println(ReStatus);
 		writer.close();
-	    }
+	/*    }
 	    else if( varify == -301 ){
 
 			PrintWriter writer = response.getWriter();
@@ -172,6 +172,7 @@ public class Backup_campaigns extends HttpServlet {
 			writer.println(ReStatus);
 			writer.close();
 	    }
+	    */
 	}
 
 }

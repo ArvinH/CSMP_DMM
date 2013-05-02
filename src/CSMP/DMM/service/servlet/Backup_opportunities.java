@@ -100,9 +100,9 @@ public class Backup_opportunities extends HttpServlet {
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
 		
 		token_verification tt = new token_verification();
-	    int varify = tt.send(SME_ID,Token);
+	   // int varify = tt.send(SME_ID,Token);
 	    
-	    if( varify == 1){
+	   // if( varify == 1){
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
@@ -110,7 +110,7 @@ public class Backup_opportunities extends HttpServlet {
 			if (connection != null) {
 
 				 //original SQL syntax
-				 BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values("+id+","+deleted+",\""+SME_ID+"\","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
+				 BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 				 connection.insert(doc);
@@ -139,7 +139,7 @@ public class Backup_opportunities extends HttpServlet {
 		
 		writer.println(status);
 		writer.close();
-	    }
+		/*    }
 	    else if( varify == -301 ){
 
 			PrintWriter writer = response.getWriter();
@@ -162,6 +162,7 @@ public class Backup_opportunities extends HttpServlet {
 			writer.println(status);
 			writer.close();
 	    }
+	    */
 	}
 
 }
