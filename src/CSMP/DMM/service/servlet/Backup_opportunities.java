@@ -23,7 +23,7 @@ import CSMP.DMM.service.model.APIManager;
  * Servlet implementation class HelloCloudfoundry
  */
 @SuppressWarnings("restriction")
-@WebServlet("/Insert_API_opportunities")
+@WebServlet("/Backup_API_opportunities")
 public class Backup_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String Replace_dbTableSechema = "replace into opportunities(id,deleted,SME_ID,date_entered,date_modified," +
@@ -98,8 +98,8 @@ public class Backup_opportunities extends HttpServlet {
 		next_step = URLDecoder.decode(request.getParameter("next_step"),"UTF-8");
 		sales_stage = URLDecoder.decode(request.getParameter("sales_stage"),"UTF-8");
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
-		
-		token_verification tt = new token_verification();
+		System.out.println("xxxxxxxxxxxxxxxxx");
+		//token_verification tt = new token_verification();
 	   // int varify = tt.send(SME_ID,Token);
 	    
 	   // if( varify == 1){
