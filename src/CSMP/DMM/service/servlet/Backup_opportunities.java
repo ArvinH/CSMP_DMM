@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.productivity.java.syslog4j.Syslog;
+import org.productivity.java.syslog4j.SyslogMessageProcessorIF;
+import org.productivity.java.syslog4j.impl.log4j.Syslog4jAppender;
+import org.productivity.java.syslog4j.impl.unix.UnixSyslog;
+
 import token_test.token_verification;
 
 import com.mongodb.BasicDBObject;
@@ -75,6 +80,7 @@ public class Backup_opportunities extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Syslog.getInstance("UNIX_SYSLOG").info("testestestestestestestestestestest");
 		response.setContentType("text/plain");
 		response.setStatus(200);
 		response.setCharacterEncoding("UTF-8");

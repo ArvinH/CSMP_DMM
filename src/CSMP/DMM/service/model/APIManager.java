@@ -19,10 +19,10 @@ public enum APIManager implements CSMP_DMM_API {
 	//private static MongoClient mongoclient;
 	public DBCollection getInstance(int service_type, String collectionName) throws Exception {
 		if (service_type == backup_opportunities_v1) {
-			return getOpportunitiesConnection(collectionName);
+			return getConnection(collectionName);
 		}
 		else if (service_type == backup_campaigns_v1) {
-			return getOpportunitiesConnection(collectionName);
+			return getConnection(collectionName);
 		}
 		else {
 			throw new IllegalArgumentException("Service for id " + service_type
@@ -31,7 +31,7 @@ public enum APIManager implements CSMP_DMM_API {
 		
 	}
 	
-	private DBCollection getOpportunitiesConnection(String collectionName) {
+	private DBCollection getConnection(String collectionName) {
 			try {
 				mongoclient = MongoFactory.getInstanceOfMongo();
 				DB db = mongoclient.getDB("CSS");
