@@ -23,51 +23,46 @@ import CSMP.DMM.service.model.APIManager;
  * Servlet implementation class HelloCloudfoundry
  */
 @SuppressWarnings("restriction")
-@WebServlet("/Insert_API_campaigns")
-public class Backup_campaigns extends HttpServlet {
+@WebServlet("/Insert_API_services")
+public class Backup_services extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String Replace_dbTableSechema = "replace into campaigns(id,deleted,SME_ID,date_entered,date_modified,modified_user_id,created_by"+
-	",description,assigned_user_id,name,type,status,date_closed,expectedrevenue,budgetcost,actualcost,expectedresponse,numsent,"+
-			"product_id,sponsor,targetaudience,targetsize,expectedresponsecount,expectedsalescount,expectedroi,actualresponsecount,actualsalescount,actualroi) ";
+	private String Replace_dbTableSechema = "replace into opportunities(id,deleted,SME_ID,date_entered,date_modified,"+
+							"modified_user_id,created_by,description,assigned_user_id,name,servicecategory,qty_per_unit,"+
+							"unit_price,sales_start_date,sales_end_date,start_date,expiry_date,discontinued,service_usageunit,"+
+							"website,taxclass,currency,commissionrate) ";
 	private String Token = null;
-	private String id = null;
-	private String deleted = null;
-	private String SME_ID = null;
-	private String date_entered = null;
-	private String date_modified = null;
-	private String modified_user_id = null;
-	private String created_by = null;
-	private String description = null;
+	private String id=null ;
+	private String deleted=null ;
+	private String SME_ID=null ;
+	private String date_entered=null ;
+	private String date_modified=null ;
+	private String modified_user_id=null ;
+	private String created_by=null ;
+	private String description=null ;
 	
-	private String assigned_user_id = null;
-	private String name = null;
-	private String type = null;
-	private String status = null;
-	private String date_closed = null;
-	private String expectedrevenue = null;
-	private String budgetcost = null;
-	private String actualcost = null;
-	private String expectedresponse = null;
-	private String numsent = null;
-	private String product_id = null;
-	private String sponsor = null;
-	private String targetaudience = null;
-	private String targetsize = null;
-	private String expectedresponsecount = null;
-	private String expectedsalescount = null;
-	private String expectedroi = null;
-	private String actualresponsecount = null;
-	private String actualsalescount = null;
-	private String actualroi = null;
-	
-	
+	private String assigned_user_id=null ;
+	private String name=null ;
+	private String servicecategory=null ;
+	private String qty_per_unit=null ;
+	private String unit_price=null ;
+	private String sales_start_date=null ;
+	private String sales_end_date=null ;
+	private String start_date=null ;
+	private String expiry_date=null ;
+	private String discontinued=null ;
+	private String service_usageunit=null ;
+	private String website=null ;
+	private String taxclass=null ;
+	private String currency=null ;
+	private String commissionrate=null ;
+
 	
 	// status for return (not for insert schema)
-	private String ReStatus = null;
+	private String status = null;
 	/**
 	 * Default constructor.
 	 */
-	public Backup_campaigns() {
+	public Backup_services() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -98,30 +93,25 @@ public class Backup_campaigns extends HttpServlet {
 		date_entered = URLDecoder.decode(request.getParameter("date_entered"),"UTF-8");
 		date_modified = URLDecoder.decode(request.getParameter("date_modified"),"UTF-8");
 		modified_user_id = URLDecoder.decode(request.getParameter("modified_user_id"),"UTF-8");
-		created_by = URLDecoder.decode(request.getParameter("created_by"),"UTF-8"); 
+		created_by = URLDecoder.decode(request.getParameter("created_by"),"UTF-8");
 		description = URLDecoder.decode(request.getParameter("description"),"UTF-8");
 		
 		assigned_user_id = URLDecoder.decode(request.getParameter("assigned_user_id"),"UTF-8");
 		name = URLDecoder.decode(request.getParameter("name"),"UTF-8");
-		type = URLDecoder.decode(request.getParameter("type"),"UTF-8");
-		status = URLDecoder.decode(request.getParameter("status"),"UTF-8");
-		date_closed = URLDecoder.decode(request.getParameter("date_closed"),"UTF-8");
-		expectedrevenue = URLDecoder.decode(request.getParameter("expectedrevenue"),"UTF-8");
-		budgetcost = URLDecoder.decode(request.getParameter("budgetcost"),"UTF-8");
-		actualcost = URLDecoder.decode(request.getParameter("actualcost"),"UTF-8");
-		expectedresponse = URLDecoder.decode(request.getParameter("expectedresponse"),"UTF-8");
-		numsent = URLDecoder.decode(request.getParameter("numsent"),"UTF-8");
-		product_id = URLDecoder.decode(request.getParameter("product_id"),"UTF-8");
-		sponsor = URLDecoder.decode(request.getParameter("sponsor"),"UTF-8");
-		targetaudience = URLDecoder.decode(request.getParameter("targetaudience"),"UTF-8");
-		targetsize = URLDecoder.decode(request.getParameter("targetsize"),"UTF-8");
-		expectedresponsecount = URLDecoder.decode(request.getParameter("expectedresponsecount"),"UTF-8");
-		expectedsalescount = URLDecoder.decode(request.getParameter("expectedsalescount"),"UTF-8");
-		expectedroi = URLDecoder.decode(request.getParameter("expectedroi"),"UTF-8");
-		actualresponsecount = URLDecoder.decode(request.getParameter("actualresponsecount"),"UTF-8");
-		actualsalescount = URLDecoder.decode(request.getParameter("actualsalescount"),"UTF-8");
-		actualroi = URLDecoder.decode(request.getParameter("actualroi"),"UTF-8");
-		
+		servicecategory = URLDecoder.decode(request.getParameter("servicecategory"),"UTF-8");
+		qty_per_unit = URLDecoder.decode(request.getParameter("qty_per_unit"),"UTF-8");
+		unit_price = URLDecoder.decode(request.getParameter("unit_price"),"UTF-8");
+		sales_start_date = URLDecoder.decode(request.getParameter("sales_start_date"),"UTF-8");
+		sales_end_date = URLDecoder.decode(request.getParameter("sales_end_date"),"UTF-8");
+		start_date = URLDecoder.decode(request.getParameter("start_date"),"UTF-8");
+		expiry_date = URLDecoder.decode(request.getParameter("expiry_date"),"UTF-8");
+		discontinued = URLDecoder.decode(request.getParameter("discontinued"),"UTF-8");
+		service_usageunit = URLDecoder.decode(request.getParameter("service_usageunit"),"UTF-8");
+		website = URLDecoder.decode(request.getParameter("website"),"UTF-8");
+		taxclass = URLDecoder.decode(request.getParameter("taxclass"),"UTF-8");
+		currency = URLDecoder.decode(request.getParameter("currency"),"UTF-8");
+		commissionrate = URLDecoder.decode(request.getParameter("commissionrate"),"UTF-8");
+
 		
 //		token_verification tt = new token_verification();
 	   // int varify = tt.send(SME_ID,Token);
@@ -130,11 +120,11 @@ public class Backup_campaigns extends HttpServlet {
 		DBCollection connection = null;
 		APIManager services = APIManager.INSTANCE;
 		try {
-			connection = services.getInstance(CSMP_DMM_API.backup_campaigns_v1,"campaigns");
+			connection = services.getInstance(CSMP_DMM_API.backup_services_v1,"services");
 			if (connection != null) {
 
 				 //original SQL syntax
-				 BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+name+","+type+","+status+","+date_closed+","+expectedrevenue+","+budgetcost+","+actualcost+","+expectedresponse+","+numsent+","+product_id+","+sponsor+","+targetaudience+","+targetsize+","+expectedresponsecount+","+expectedsalescount+","+expectedroi+","+actualresponsecount+","+actualsalescount+","+actualroi+");");
+				 BasicDBObject doc = new BasicDBObject("schema", Replace_dbTableSechema+"values("+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+assigned_user_id+","+name+","+servicecategory+","+qty_per_unit+","+unit_price+","+sales_start_date+","+sales_end_date+","+start_date+","+expiry_date+","+discontinued+","+service_usageunit+","+website+","+taxclass+","+currency+","+commissionrate+");");
 				 connection.insert(doc);
 				// according to python-mysql-connector
 				/*BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)*^*["+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
@@ -144,14 +134,14 @@ public class Backup_campaigns extends HttpServlet {
 				*/	
 				
 			} else {
-				ReStatus = new String("0, ERROR");
+				status = new String("0, ERROR");
 				System.out.println("connection error");
 			}
-			ReStatus = new String("1, OK");
+			status = new String("1, OK");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			ReStatus = new String("0, ERROR");
+			status = new String("0, ERROR");
 		}
 		finally{
 			
@@ -159,7 +149,7 @@ public class Backup_campaigns extends HttpServlet {
 
 		PrintWriter writer = response.getWriter();
 		
-		writer.println(ReStatus);
+		writer.println(status);
 		writer.close();
 		/*    }
 	    else if( varify == -301 ){

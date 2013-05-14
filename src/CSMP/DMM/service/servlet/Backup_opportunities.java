@@ -10,12 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.productivity.java.syslog4j.Syslog;
-import org.productivity.java.syslog4j.SyslogMessageProcessorIF;
-import org.productivity.java.syslog4j.impl.log4j.Syslog4jAppender;
-import org.productivity.java.syslog4j.impl.unix.UnixSyslog;
-
-import token_test.token_verification;
+import CSMP.DMM.service.servlet.token_verification;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -28,7 +23,7 @@ import CSMP.DMM.service.model.APIManager;
  * Servlet implementation class HelloCloudfoundry
  */
 @SuppressWarnings("restriction")
-@WebServlet("/Backup_API_opportunities")
+@WebServlet("/Insert_API_opportunities")
 public class Backup_opportunities extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String Replace_dbTableSechema = "replace into opportunities(id,deleted,SME_ID,date_entered,date_modified," +
@@ -80,14 +75,16 @@ public class Backup_opportunities extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Syslog.getInstance("UNIX_SYSLOG").info("testestestestestestestestestestest");
 		response.setContentType("text/plain");
 		response.setStatus(200);
 		response.setCharacterEncoding("UTF-8");
 		Token = URLDecoder.decode(request.getParameter("Token"),"UTF-8"); 
+		Token = Token.replace(' ','+' );
+		
 		id = URLDecoder.decode(request.getParameter("id"),"UTF-8");
 		deleted = URLDecoder.decode(request.getParameter("deleted"),"UTF-8");
 		SME_ID = URLDecoder.decode(request.getParameter("SME_ID"),"UTF-8");
+			
 		date_entered = URLDecoder.decode(request.getParameter("date_entered"),"UTF-8");
 		date_modified = URLDecoder.decode(request.getParameter("date_modified"),"UTF-8");
 		modified_user_id = URLDecoder.decode(request.getParameter("modified_user_id"),"UTF-8");
@@ -104,14 +101,16 @@ public class Backup_opportunities extends HttpServlet {
 		next_step = URLDecoder.decode(request.getParameter("next_step"),"UTF-8");
 		sales_stage = URLDecoder.decode(request.getParameter("sales_stage"),"UTF-8");
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
-		System.out.println("xxxxxxxxxxxxxxxxx");
-		//token_verification tt = new token_verification();
-	   // int varify = tt.send(SME_ID,Token);
+		
+		
+		token_verification tt = new token_verification();
+	   	String varify = tt.send(SME_ID,Token);
+	   	SME_ID = "\""+SME_ID+"\"" ;
 	    
-	   // if( varify == 1){
-		DBCollection connection = null;
-		APIManager services = APIManager.INSTANCE;
-		try {
+	  if( varify.equals("1")){
+	   	DBCollection connection = null;
+	   	APIManager services = APIManager.INSTANCE;
+	    try {
 			connection = services.getInstance(CSMP_DMM_API.backup_opportunities_v1,"opportunities");
 			if (connection != null) {
 
@@ -145,8 +144,8 @@ public class Backup_opportunities extends HttpServlet {
 		
 		writer.println(status);
 		writer.close();
-		/*    }
-	    else if( varify == -301 ){
+		}
+	    else if( varify.equals("-301") ){
 
 			PrintWriter writer = response.getWriter();
 			status = new String("301, parameter error"); 
@@ -154,7 +153,7 @@ public class Backup_opportunities extends HttpServlet {
 			writer.close();
 			
 	    }
-	    else if( varify == -302 ){
+	    else if( varify.equals("-302") ){
 
 			PrintWriter writer = response.getWriter();
 			status = new String("302, request executed failed"); 
@@ -163,12 +162,13 @@ public class Backup_opportunities extends HttpServlet {
 			
 	    }
 	    else{
+	    	
 	    	PrintWriter writer = response.getWriter();
 	    	status = new String("something wrong with token varify"); 
 			writer.println(status);
 			writer.close();
 	    }
-	    */
+	    
 	}
 
 }

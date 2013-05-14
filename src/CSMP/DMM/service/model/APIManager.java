@@ -19,19 +19,53 @@ public enum APIManager implements CSMP_DMM_API {
 	//private static MongoClient mongoclient;
 	public DBCollection getInstance(int service_type, String collectionName) throws Exception {
 		if (service_type == backup_opportunities_v1) {
-			return getConnection(collectionName);
-		}
-		else if (service_type == backup_campaigns_v1) {
-			return getConnection(collectionName);
-		}
-		else {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_campaigns_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_base_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_accounts_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_calls_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_cases_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_contacts_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_emails_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_leads_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_meetings_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_tasks_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_users_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_faq_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_vendors_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_products_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_services_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_quotes_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_puchaseorders_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_salesorders_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else if (service_type == backup_invoices_v1) {
+			return getOpportunitiesConnection(collectionName);
+		}else {
 			throw new IllegalArgumentException("Service for id " + service_type
 					+ " not found...");
 		}
 		
 	}
 	
-	private DBCollection getConnection(String collectionName) {
+	private DBCollection getOpportunitiesConnection(String collectionName) {
 			try {
 				mongoclient = MongoFactory.getInstanceOfMongo();
 				DB db = mongoclient.getDB("CSS");
