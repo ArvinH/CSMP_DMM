@@ -3,6 +3,8 @@ package CSMP.DMM.service.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.productivity.java.syslog4j.Syslog;
+import org.productivity.java.syslog4j.SyslogIF;
+import org.productivity.java.syslog4j.SyslogMessageProcessorIF;
+
 import CSMP.DMM.service.servlet.token_verification;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -51,6 +60,16 @@ public class Backup_opportunities extends HttpServlet {
 	private String probability = null;
 	// status for return (not for insert schema)
 	private String status = null;
+	private ObjectMapper mapper = new ObjectMapper();
+	private String request_ip = null;
+	private String recive_time = null;
+	private String return_time = null;
+	private String request_content = null;
+	private String time_start_varify = null;
+	private String time_end_varify = null;
+	private String writeTomongo_time = null;
+	private SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+	private String sysLog_string = null;
 	/**
 	 * Default constructor.
 	 */
@@ -75,9 +94,13 @@ public class Backup_opportunities extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Date recive_date = new Date();
+		recive_time = sdFormat.format(recive_date);
 		response.setContentType("text/plain");
 		response.setStatus(200);
 		response.setCharacterEncoding("UTF-8");
+		request_ip = request.getRemoteAddr();
+		
 		Token = URLDecoder.decode(request.getParameter("Token"),"UTF-8"); 
 		Token = Token.replace(' ','+' );
 		
@@ -102,9 +125,14 @@ public class Backup_opportunities extends HttpServlet {
 		sales_stage = URLDecoder.decode(request.getParameter("sales_stage"),"UTF-8");
 		probability = URLDecoder.decode(request.getParameter("probability"),"UTF-8");
 		
+		Date start_varify_date = new Date();
+		time_start_varify = sdFormat.format(start_varify_date);
 		
 		token_verification tt = new token_verification();
 	   	String varify = tt.send(SME_ID,Token);
+	   	
+	   	Date end_varify_date = new Date();
+	   	time_end_varify = sdFormat.format(end_varify_date);
 	   	SME_ID = "\""+SME_ID+"\"" ;
 	    
 	  if( varify.equals("1")){
@@ -119,6 +147,7 @@ public class Backup_opportunities extends HttpServlet {
 							assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
 							next_step+","+sales_stage+","+probability+");");
 				 connection.insert(doc);
+				 request_content = doc.toString();
 				// according to python-mysql-connector
 				/*BasicDBObject doc = new BasicDBObject("schema", insertdbTableSechema+"values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)*^*["+id+","+deleted+","+SME_ID+","+date_entered+","+date_modified+","+modified_user_id+","+created_by+","+description+","+
 						assigned_user_id+","+name+","+related_to+","+opportunity_type+","+campaign_source+","+lead_source+","+amount+","+date_closed+","+
@@ -137,11 +166,12 @@ public class Backup_opportunities extends HttpServlet {
 			status = new String("0, ERROR");
 		}
 		finally{
-			
+			Date writeTomongo_date = new Date();
+			writeTomongo_time = sdFormat.format(writeTomongo_date);
 		}
 
 		PrintWriter writer = response.getWriter();
-		
+
 		writer.println(status);
 		writer.close();
 		}
@@ -168,7 +198,38 @@ public class Backup_opportunities extends HttpServlet {
 			writer.println(status);
 			writer.close();
 	    }
-	    
+	  	Date return_date = new Date();
+	  	return_time = sdFormat.format(return_date);
+	  	sysLog_string = " {\"Request\": "+
+	  		" [\"request_ip\":"+request_ip+", "+  
+	  		" \"recive_time\":"+recive_time+", "+
+	  		" \"return_time\":"+return_time+", "+
+	  		" \"return_message\":"+status+", "+
+	  		" \"request_API\":opportunities, "+
+	  		" \"request_content\":"+request_content+""+
+	  		" ], "+
+	  		" \"MTM_Varify\": "+ 
+	  		" [\"SME_ID\":"+SME_ID+", "+
+	  		" \"Token\":"+Token+", "+
+	  		" \"Varify_result\":"+varify+", "+
+	  		" \"time_start_varify\":"+time_start_varify+", "+
+	  		" \"time_end_varify\":"+time_end_varify+""+
+	  		" ], "+
+	  		" \"writeTomongo_time\":"+writeTomongo_time+""+
+	  		" }";
+	  	
+	  	try {
+			SyslogIF syslog = Syslog.getInstance("udp");
+			syslog.getConfig().setLocalName("DMM-webservice&mongodb");
+			syslog.getConfig().setFacility(16);
+			syslog.getConfig().setHost("192.168.1.168");
+			syslog.getConfig().setPort(514);
+			syslog.info(sysLog_string);
+			
+			} catch ( Exception e ) {
+				System.out.println(e.getMessage());
+			}
+	  	
 	}
 
 }
